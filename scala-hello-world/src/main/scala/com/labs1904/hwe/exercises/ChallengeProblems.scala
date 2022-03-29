@@ -7,7 +7,7 @@ object ChallengeProblems {
     Params - String
     Returns - String
   */
-
+  def sameString(name: String): String = name
 
   /*
   2. Write a function that returns "Hello World!" and takes in nothing as a parameter
