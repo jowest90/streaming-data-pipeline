@@ -18,31 +18,53 @@ reword confusing descriptions in a way that makes sense to you.
 
 ## Questions
 #### What problem does Kafka help solve? Use a specific use case in your answer 
+Kafka helps replace previous data querying for a better throughput, built-in partitioning, 
+replication, and fault tolerance which makes it a good solution for large-scale 
+message processing applications in real time.
+A good use case example for this is credit fraud detection for a financial company which will 
+send alerts to a person the moment a transaction has been made and see if it was authorized or not.
 * Helpful resource: [Confluent Motivations and Use Cases](https://youtu.be/BsojaA1XnpM)
 
 #### What is Kafka?
+Kafka is a distributed data storage that optimizes real-time streaming data. 
 * Helpful resource: [Kafka in 6 minutes](https://youtu.be/Ch5VhJzaoaI) 
 
 #### Describe each of the following with an example of how they all fit together: 
  * Topic
+   * the categories used to organize messages. Each topic has a name that is unique across the entire Kafka cluster. 
+   Messages are sent to and read from specific topics. 
+   * Example: Payments
  * Producer
+   * can application that can act as a source of data in a Kafka cluster. A producer can publish messages to one or more Kafka topics
+   * Example: messages
  * Consumer 
+   * When multiple consumers are subscribed to a topic and belong to the same consumer group, each consumer in the group will receive messages from a different subset of the partitions in the topic
  * Broker
+   * a Kafka server that runs in a Kafka Cluster. Kafka Brokers form a cluster. 
+   The Kafka Cluster consists of many Kafka Brokers on many servers. 
+   Broker sometimes refer to more of a logical system or as Kafka as a whole
  * Partition
+   * takes the single topic log and breaks it into multiple logs, each of which can live on a separate node in the Kafka cluster. 
+   This way, the work of storing messages, writing new messages, and processing existing messages can be split among many nodes in the cluster.
 
 #### Describe Kafka Producers and Consumers
-
+producers write data to topics, and consumers read data from topics
 #### How are consumers and consumer groups different in Kafka? 
+Kafka consumer consumption divides partitions over consumer instances within a consumer group. 
+Each consumer in the consumer group is an exclusive consumer of a “fair share” of partitions. 
+This is how Kafka does load balancing of consumers in a consumer group
 * Helpful resource: [Consumers](https://youtu.be/lAdG16KaHLs)
 * Helpful resource: [Confluent Consumer Overview](https://youtu.be/Z9g4jMQwog0)
 
 #### How are Kafka offsets different than partitions? 
-
+This offset acts as a unique identifier of a record within that partition, and also denotes the position of the consumer in the partition.
 #### How is data assigned to a specific partition in Kafka? 
-
+with a key
 #### Describe immutability - Is data on a Kafka topic immutable? 
-
+Immutability means to be unchanging over time or unable to be changed. Yes, the data is immutable
 #### How is data replicated across brokers in kafka? If you have a replication factor of 3 and 3 brokers, explain how data is spread across brokers
 * Helpful resource [Brokers and Replication factors](https://youtu.be/ZOU7PJWZU9w)
-
+If a broker goes down, another one will take its place as long as the replication factor is more than 1.
+* if the factor is 3, B1 will have T1/P0 & T1/P2, B2 will have T1/P1 & T1/P0, and B3 will have T1/P2 & T1/P1
 #### What was the most fascinating aspect of Kafka to you while learning? 
+the fact that the data cannot be unchanged throughout its lifespan
