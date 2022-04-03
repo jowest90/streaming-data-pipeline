@@ -31,37 +31,33 @@ Kafka is a distributed data storage that optimizes real-time streaming data.
 
 #### Describe each of the following with an example of how they all fit together: 
  * Topic
-   * the categories used to organize messages. Each topic has a name that is unique across the entire Kafka cluster. 
-   Messages are sent to and read from specific topics. 
+   * To organize messages 
    * Example: Payments
  * Producer
-   * can application that can act as a source of data in a Kafka cluster. A producer can publish messages to one or more Kafka topics
+   * can application that writes a topic
    * Example: messages
  * Consumer 
-   * When multiple consumers are subscribed to a topic and belong to the same consumer group, each consumer in the group will receive messages from a different subset of the partitions in the topic
+   * an application that reads a topic
  * Broker
-   * a Kafka server that runs in a Kafka Cluster. Kafka Brokers form a cluster. 
-   The Kafka Cluster consists of many Kafka Brokers on many servers. 
+   * The Kafka server 
    Broker sometimes refer to more of a logical system or as Kafka as a whole
  * Partition
-   * takes the single topic log and breaks it into multiple logs, each of which can live on a separate node in the Kafka cluster. 
-   This way, the work of storing messages, writing new messages, and processing existing messages can be split among many nodes in the cluster.
+   * Stores and writes new messages in its own node
 
 #### Describe Kafka Producers and Consumers
 producers write data to topics, and consumers read data from topics
 #### How are consumers and consumer groups different in Kafka? 
-Kafka consumer consumption divides partitions over consumer instances within a consumer group. 
-Each consumer in the consumer group is an exclusive consumer of a “fair share” of partitions. 
-This is how Kafka does load balancing of consumers in a consumer group
+While the consumer reads data from topic, the consumer group contains a cluster of consumer. 
+Each consumer is exclusive to a partition.
 * Helpful resource: [Consumers](https://youtu.be/lAdG16KaHLs)
 * Helpful resource: [Confluent Consumer Overview](https://youtu.be/Z9g4jMQwog0)
 
 #### How are Kafka offsets different than partitions? 
-This offset acts as a unique identifier of a record within that partition, and also denotes the position of the consumer in the partition.
+The offset is a unique ID to the partition.
 #### How is data assigned to a specific partition in Kafka? 
 with a key
 #### Describe immutability - Is data on a Kafka topic immutable? 
-Immutability means to be unchanging over time or unable to be changed. Yes, the data is immutable
+Immutability means to not change. Yes, the data is immutable
 #### How is data replicated across brokers in kafka? If you have a replication factor of 3 and 3 brokers, explain how data is spread across brokers
 * Helpful resource [Brokers and Replication factors](https://youtu.be/ZOU7PJWZU9w)
 If a broker goes down, another one will take its place as long as the replication factor is more than 1.
