@@ -23,26 +23,44 @@ object KafkaHomework {
 
     // Create the KafkaConsumer
     //TODO: Write in a comment what these lines are doing. What are the properties necessary to instantiate a consumer?
+    /*
+    getProperties is getting the essential components to connect to the BootStrap server
+     */
     val properties = getProperties(BootstrapServer)
     val consumer: KafkaConsumer[String, String] = new KafkaConsumer[String, String](properties)
 
 
     //TODO: What does this line mean? Write your answer in a comment below
+    /*
+    reading the topic as an arrayList
+     */
     consumer.subscribe(Arrays.asList(Topic))
 
     while (true) {
       // TODO: Change this to be every 5 seconds
+      /*
+         val duration: Duration = Duration.ofMillis(5000)
+     */
       val duration: Duration = Duration.ofMillis(100)
 
       //TODO: Look up the ConsumerRecords class below, in your own words what is the class designed to do?
+      /*
+      ConsumerRecords creates a value within the topic and partition
+       */
       val records: ConsumerRecords[String, String] = consumer.poll(duration)
 
       records.forEach((record: ConsumerRecord[String, String]) => {
         // Retrieve the message from each record
         //TODO: Describe why we need the .value() at the end of record
+        /*
+        to extract the value from the record
+         */
         val message = record.value()
 
         //TODO: If you were given the values for the bootstrap servers in class, run the app with the green play button and make sure it runs successfully. You should see message(s) printing out to the screen
+        /*
+        "Message Received: $message"
+         */
         println(s"Message Received: $message")
       })
     }

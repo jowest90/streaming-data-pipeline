@@ -11,6 +11,8 @@ import org.apache.kafka.common.serialization.StringDeserializer
 import java.time.Duration
 import java.util.{Arrays, Properties, UUID}
 
+case class RawUser(id: String, name: String, email: String) // constructor definition
+case class EnrichedUser (id: String, numberAsWord: Integer, name: String,hweDeveloper: String, email: String) // constructor definition
 object HweConsumer {
   val BootstrapServer : String = "CHANGEME"
   val consumerTopic: String = "question-1"
@@ -49,6 +51,21 @@ object HweConsumer {
         val message = record.value()
         println(s"Message Received: $message")
         // TODO: Add business logic here!
+        //split lines by comma
+        val user = message.split(",").map(_.trim)
+        //identify values
+        val id = user(0)
+        val numberAsWord = user(0).toInt
+        val name = user(1)
+        val hweDeveloper = "John West"
+        val email = user(2)
+        //RawUser
+        val rawUserLog = new RawUser(id,name,email)
+        println(rawUserLog)
+
+        //EnrichedUser
+        val enrichedUserLog = new EnrichedUser(id,numberAsWord,name,hweDeveloper,email)
+        println(enrichedUserLog)
 
       })
     }
