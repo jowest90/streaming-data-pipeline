@@ -13,7 +13,7 @@ reword confusing descriptions in a way that makes sense to you.
 
 ### Your Challenge
 1. Create a new branch for your answers 
-2. Complete all of the questions below by writing your answers under each question
+2. Complete all the questions below by writing your answers under each question
 3. Commit your changes and push to your forked repository
 
 ## Questions
@@ -35,14 +35,16 @@ Kafka is a distributed data storage that optimizes real-time streaming data.
    * Example: Payments
  * Producer
    * can application that writes a topic
-   * Example: messages
+   * Example: writers
  * Consumer 
    * an application that reads a topic
+   * Example: readers
  * Broker
-   * The Kafka server 
-   Broker sometimes refer to more of a logical system or as Kafka as a whole
+   * The Kafka server
+   * Example: the main server
  * Partition
    * Stores and writes new messages in its own node
+   * Example: data cluster
 
 #### Describe Kafka Producers and Consumers
 producers write data to topics, and consumers read data from topics
@@ -52,7 +54,7 @@ Each consumer is exclusive to a partition.
 * Helpful resource: [Consumers](https://youtu.be/lAdG16KaHLs)
 * Helpful resource: [Confluent Consumer Overview](https://youtu.be/Z9g4jMQwog0)
 
-#### How are Kafka offsets different than partitions? 
+#### How are Kafka offsets different from partitions? 
 The offset is a unique ID to the partition.
 #### How is data assigned to a specific partition in Kafka? 
 with a key
