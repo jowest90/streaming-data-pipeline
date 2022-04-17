@@ -23,9 +23,9 @@ object WordCountBatchApp {
 
       // TODO: implement me
 
-      //val counts = ???
+      val counts = sentences.flatMap(row => splitSentenceIntoWords(row)).groupBy("value").count().sort(desc("count"))
 
-      //counts.foreach(wordCount=>println(wordCount))
+      counts.foreach(wordCount=>println(wordCount))
     } catch {
       case e: Exception => logger.error(s"$jobName error in main", e)
     }
@@ -33,6 +33,5 @@ object WordCountBatchApp {
 
   // TODO: implement this function
   // HINT: you may have done this before in Scala practice...
-  def splitSentenceIntoWords(sentence: String): Array[String] = ???
-
+  def splitSentenceIntoWords(sentence: String): Array[String] = sentence.split(" ")
 }
