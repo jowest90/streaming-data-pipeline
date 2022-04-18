@@ -19,10 +19,11 @@ reword confusing descriptions in a way that makes sense to you.
 
 ## Questions
 #### What is a NoSQL database? 
-- NoSQL is an approach to database management that can accommodate a wide variety of data models, including key-value, document, columnar and graph formats
+- NoSQL is a Non-Relational catch-all item for any database
 
 #### In your own words, what is Apache HBase? 
-- An open source NoSQL database used to access data in real time. 
+- An open source distributed NoSQL database used to access big data in real time.
+They don't require a schema as it uses rowKeys as an indicator.
 
 #### What are some strengths and limitations of HBase? 
 Pros:
@@ -41,10 +42,17 @@ Cons:
 * Rowkey
   * Optimized for scanning and allows storing related rows.
 * Column Qualifier
-  * the name of the column key
+  * the name of the column index
 * Column Family
   * a group of column qualifiers
-
+* NameSpace
+  * A logical group of tables
+* Table
+  * A collection of rows
+* Row
+  * contains a KEY plus one or more columns.
+* Cell
+  * combination of a row, column family, and column qualifier
 
 #### What are the differences between Get and Put commands in HBase? 
 - Put inserts rows into table
@@ -58,3 +66,8 @@ Cons:
 
 #### What was the most interesting aspect of HBase when went through all the questions? 
 - that it uses NoSQL as the foundation for this data storage.
+
+#### What is the difference between Relational vs non-relational?
+-Relational is a collection of pre-defined data items.
+-Non-Relational is a catch-all item for any database. AKA NoSQL
+
