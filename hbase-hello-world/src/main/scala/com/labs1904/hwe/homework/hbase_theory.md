@@ -19,25 +19,42 @@ reword confusing descriptions in a way that makes sense to you.
 
 ## Questions
 #### What is a NoSQL database? 
-
+- NoSQL is an approach to database management that can accommodate a wide variety of data models, including key-value, document, columnar and graph formats
 
 #### In your own words, what is Apache HBase? 
-
+- An open source NoSQL database used to access data in real time. 
 
 #### What are some strengths and limitations of HBase? 
+Pros:
+- Scalable
+- Can be developed in Java/Scala
+- parallel processing supported
+
+Cons:
+- CPU and Memory intensive
+- Single point of failure
+- No support of transactions
+
 * [HBase By Examples](https://sparkbyexamples.com/apache-hbase-tutorial/)
 
 #### Explain the following concepts: 
 * Rowkey
+  * Optimized for scanning and allows storing related rows.
 * Column Qualifier
+  * the name of the column key
 * Column Family
+  * a group of column qualifiers
 
 
 #### What are the differences between Get and Put commands in HBase? 
+- Put inserts rows into table
+- Get does the opposite of Put
 * [HBase commands](https://www.tutorialspoint.com/hbase/hbase_create_data.htm)
 
 
 #### What is the HBase Scan command for? 
+- To view the data
 * [HBase Scan](https://www.tutorialspoint.com/hbase/hbase_scan.htm)
 
 #### What was the most interesting aspect of HBase when went through all the questions? 
+- that it uses NoSQL as the foundation for this data storage.
