@@ -30,7 +30,8 @@ object StreamingPipeline {
   val username = "CHANGEME"
   val password = "CHANGEME"
   val hdfsUsername = "CHANGEME" // TODO: set this to your handle
-  val hdfaconfig = "CHANGEME"
+  val hdfsTable = "CHANGEME"
+  val hdfsConfig = "CHANGEME"
 
   //Use this for Windows
   val trustStore: String = "src\\main\\resources\\kafka.client.truststore.jks"
@@ -39,7 +40,15 @@ object StreamingPipeline {
 
   def main(args: Array[String]): Unit = {
     try {
+//      val spark = SparkSession.builder()
+//        .config("spark.sql.shuffle.partitions", "3")
+//        .appName(jobName)
+//        .master("local[*]")
+//        .getOrCreate()
+
       val spark = SparkSession.builder()
+        .config("spark.hadoop.dfs.client.use.datanode.hostname", "true")
+        .config("spark.hadoop.fs.defaultFS", hdfsUrl)
         .config("spark.sql.shuffle.partitions", "3")
         .appName(jobName)
         .master("local[*]")
@@ -86,13 +95,13 @@ object StreamingPipeline {
       val customers = reviews.mapPartitions(partition => {
         // Open Hbase Connection
         val conf = HBaseConfiguration.create()
-        conf.set("hbase.zookeeper.quorum", hdfaconfig)
+        conf.set("hbase.zookeeper.quorum", hdfsConfig)
         val connection = ConnectionFactory.createConnection(conf)
 
-        val table = connection.getTable(TableName.valueOf(hdfsUsername))
+        val table = connection.getTable(TableName.valueOf(hdfsTable))
 
         val iter = partition.map(row => {
-          val get = new Get(Bytes.toBytes(row.customer_id)).addFamily(Bytes.toBytes("f1"))
+          val get = new Get(Bytes.toBytes(row.customer_id.toString)).addFamily(Bytes.toBytes("f1"))
           val result = table.get(get)
           val username = Bytes.toString(result.getValue(Bytes.toBytes("f1"),Bytes.toBytes("username")))
           val name = Bytes.toString(result.getValue(Bytes.toBytes("f1"),Bytes.toBytes("name")))
@@ -111,21 +120,21 @@ object StreamingPipeline {
         iter
       })
 
-      val query = customers.writeStream
-        .outputMode(OutputMode.Append())
-        .format("console")
-        .option("truncate", false)
-        .trigger(Trigger.ProcessingTime("5 seconds"))
-        .start()
-
-      // Write output to HDFS
-//      val query = result.writeStream
+//      val query = customers.writeStream
 //        .outputMode(OutputMode.Append())
-//        .format("json")
-//        .option("path", s"/user/${hdfsUsername}/reviews_json")
-//        .option("checkpointLocation", s"/user/${hdfsUsername}/reviews_checkpoint")
+//        .format("console")
+//        .option("truncate", false)
 //        .trigger(Trigger.ProcessingTime("5 seconds"))
 //        .start()
+
+      // Write output to HDFS
+      val query = customers.writeStream
+        .outputMode(OutputMode.Append())
+        .format("csv")
+        .option("path", s"/user/${hdfsUsername}/reviews_csv")
+        .option("checkpointLocation", s"/user/${hdfsUsername}/reviews_checkpoint")
+        .trigger(Trigger.ProcessingTime("5 seconds"))
+        .start()
       query.awaitTermination()
     } catch {
       case e: Exception => logger.error(s"$jobName error in main", e)
